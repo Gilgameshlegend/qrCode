@@ -58,6 +58,8 @@ public class IdentityController {
                 user.setEnd_time(transform(identityCard.getEndTime()));
                 user.setName_with_unit(identityCard.getUserName());
                 user.setAvartar_url(identityCard.getUserPhoto());
+                cardResponse.setStatus(respMsg);
+                cardResponse.setUser(user);
             }
             return ApiResponse.ok(cardResponse);
         }catch (Exception e){
@@ -95,6 +97,7 @@ public class IdentityController {
                 user.setEnd_time(endTime);
                 user.setName_with_unit(request.getUser().getName_with_unit());
                 user.setAvartar_url(request.getUser().getAvartar_url());
+                cardResponse.setUser(user);
             } else {
                 respMsg = "failed";
                 cardResponse.setStatus(respMsg);
