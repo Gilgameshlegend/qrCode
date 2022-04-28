@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.CardMapper">
+
+    <resultMap id="cardMapper" type="com.tencent.wxcloudrun.model.IdentityCard">
+        <id property="id" column="id"/>
+        <result property="unitId" column="unit_id" />
+        <result property="userName" column="user_name" />
+        <result property="userPhoto" column="user_photo" />
+        <result property="startTime" column="start_time" javaType="java.util.Date" />
+        <result property="startTime" column="end_time" javaType="java.util.Date"  />
+    </resultMap>
+
+    <select id="getUnitCardAlready" resultMap="cardMapper" parameterType="java.lang.String">
+        SELECT `id`, `unit_id`, `user_name`, `user_photo`,`start_time`, `end_time`
+        FROM tbl_unit_identity
+        WHERE unit_id = #{unit_id}
+    </select>
+
+    <update id="setUnitCard" parameterType="com.tencent.wxcloudrun.model.IdentityCard">
+        INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`)
+            VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
+    </update>
+
+    <update id="deleteUnitCardAlready" parameterType="com.tencent.wxcloudrun.model.IdentityCard">
+        INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`)
+            VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
+    </update>
+
+    <delete id="deleteUnitCardAlready" parameterType="java.lang.String">
+        DELETE
+        FROM tbl_unit_identity
+        where unit_id = #{unit_id}
+    </delete>
+
+</mapper>
