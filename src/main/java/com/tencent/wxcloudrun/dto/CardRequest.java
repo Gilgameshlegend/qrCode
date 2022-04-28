@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CardRequest {
 
-  private String unit_name;
+  private String unit_number;
 
   private User user;
 

@@ -16,4 +16,5 @@ public interface CardMapper {
 
     void deleteUnitCardAlready(@Param("unit_id") String unitId);
 
+    void deleteOutTimeCard(@Param("time") String endTime);
 }

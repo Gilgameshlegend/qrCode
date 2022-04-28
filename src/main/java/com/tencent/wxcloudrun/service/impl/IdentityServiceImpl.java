@@ -30,4 +30,9 @@ public class IdentityServiceImpl implements IdentityService {
     public void deleteUnitCard(String unit) {
         ca.deleteUnitCardAlready(unit);
     }
+
+    @Override
+    public void deleteOutTimeCard(String endTime) {
+        ca.deleteOutTimeCard(endTime);
+    }
 }

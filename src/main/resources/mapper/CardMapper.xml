@@ -8,7 +8,7 @@
         <result property="userName" column="user_name" />
         <result property="userPhoto" column="user_photo" />
         <result property="startTime" column="start_time" javaType="java.util.Date" />
-        <result property="endTime" column="end_time" javaType="java.util.Date"  />
+        <result property="startTime" column="end_time" javaType="java.util.Date"  />
     </resultMap>
 
     <select id="getUnitCardAlready" resultMap="cardMapper" parameterType="java.lang.String">
@@ -21,6 +21,15 @@
         INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`)
             VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
     </update>
+
+    <delete id="deleteOutTimeCard" parameterType="java.lang.String">
+        DELETE
+        FROM
+            tbl_unit_identity
+        WHERE
+            end_time <![CDATA[ < ]]>  #{time}
+
+    </delete>
 
     <delete id="deleteUnitCardAlready" parameterType="java.lang.String">
         DELETE

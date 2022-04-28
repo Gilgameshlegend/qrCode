@@ -4,7 +4,6 @@ import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.dto.CardRequest;
 import com.tencent.wxcloudrun.dto.CardResponse;
 import com.tencent.wxcloudrun.dto.User;
-import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.model.IdentityCard;
 import com.tencent.wxcloudrun.service.IdentityService;
 import org.slf4j.Logger;
@@ -12,13 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * counter控制器
@@ -47,7 +44,8 @@ public class IdentityController {
         String respMsg = "success";
         CardResponse cardResponse = new CardResponse();
         try {
-
+            String curTime = getCurrent();
+            identityService.deleteOutTimeCard(curTime);
             IdentityCard identityCard = identityService.getUnitCardAlready(unitId);
             if (identityCard == null) {
                 respMsg = "failed";
@@ -79,18 +77,20 @@ public class IdentityController {
      */
     @PostMapping(value = "/acquire")
     ApiResponse acquire(@RequestBody CardRequest request) {
-        logger.info("/acquire post request, request_unit: {}", request.getUnit_name());
+        logger.info("/acquire post request, request_unit: {}", request.getUnit_number());
 
         String respMsg = "success";
         CardResponse cardResponse = new CardResponse();
 
         try {
+            String time = getCurrent();
+            identityService.deleteOutTimeCard(time);
 
-            IdentityCard identityCard = identityService.getUnitCardAlready(request.getUnit_name());
+            IdentityCard identityCard = identityService.getUnitCardAlready(request.getUnit_number());
             if (identityCard == null) {
                 String curTime = getCurrent();
                 String endTime = getEndTime();
-                identityService.setUnitCard(request.getUnit_name(), request.getUser().getName_with_unit(), request.getUser().getAvartar_url(), curTime, endTime);
+                identityService.setUnitCard(request.getUnit_number(), request.getUser().getName_with_unit(), request.getUser().getAvartar_url(), curTime, endTime);
                 cardResponse.setStatus(respMsg);
                 User user = new User();
                 user.setAcquire_time(curTime);

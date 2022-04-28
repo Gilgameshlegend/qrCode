@@ -16,4 +16,6 @@ public interface IdentityService {
 
   //释放证
   void deleteUnitCard(String unit);
+
+  void deleteOutTimeCard(String endTime);
 }
