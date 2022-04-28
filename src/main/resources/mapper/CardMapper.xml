@@ -22,11 +22,6 @@
             VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
     </update>
 
-    <update id="deleteUnitCardAlready" parameterType="com.tencent.wxcloudrun.model.IdentityCard">
-        INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`)
-            VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
-    </update>
-
     <delete id="deleteUnitCardAlready" parameterType="java.lang.String">
         DELETE
         FROM tbl_unit_identity
