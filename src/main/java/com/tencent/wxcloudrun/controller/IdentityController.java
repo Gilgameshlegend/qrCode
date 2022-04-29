@@ -148,10 +148,14 @@ public class IdentityController {
         //getInstance()将返回一个Calendar的对象。
         Calendar calendar = Calendar.getInstance();
         //设置小时
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 1);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 30);
         //格式化时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return df.format(calendar.getTime());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getEndTime());;
     }
 
 }
