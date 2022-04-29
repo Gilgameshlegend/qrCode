@@ -14,27 +14,30 @@
     <select id="getUnitCardAlready" resultMap="cardMapper" parameterType="java.lang.String">
         SELECT `id`, `unit_id`, `user_name`, `user_photo`,`start_time`, `end_time`
         FROM tbl_unit_identity
-        WHERE unit_id = #{unit_id}
+        WHERE unit_id = #{unit_id} and oper_in != "D"
     </select>
 
     <update id="setUnitCard" parameterType="com.tencent.wxcloudrun.model.IdentityCard">
-        INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`)
-            VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time})
+        INSERT INTO `tbl_unit_identity`(`unit_id`,`user_name`,`user_photo`,`start_time`,`end_time`,`oper_in`)
+            VALUE(#{unit_id},#{user_name},#{user_photo},#{start_time},#{end_time},"I")
     </update>
 
-    <delete id="deleteOutTimeCard" parameterType="java.lang.String">
-        DELETE
-        FROM
+    <update id="deleteOutTimeCard" parameterType="java.lang.String">
+        UPDATE
             tbl_unit_identity
+        set
+            oper_in = "D"
         WHERE
             end_time <![CDATA[ < ]]>  #{time}
 
-    </delete>
+    </update>
 
-    <delete id="deleteUnitCardAlready" parameterType="java.lang.String">
-        DELETE
-        FROM tbl_unit_identity
+    <update id="deleteUnitCardAlready" parameterType="java.lang.String">
+        UPDATE
+            tbl_unit_identity
+        set
+            oper_in = "D"
         where unit_id = #{unit_id}
-    </delete>
+    </update>
 
 </mapper>
